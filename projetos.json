@@ -1,0 +1,22 @@
+[
+    {
+        "titulo": "Automação de API Bancária",
+        "descricao": "Script em Python para automatizar a consulta e integração de dados com APIs de bancos (Protótipo Público).",
+        "link": "https://github.com/pedbza/pontual-consulta-api-offline"
+    },
+    {
+        "titulo": "Workflow de IA (n8n)",
+        "descricao": "Fluxo de automação complexo criado no n8n para orquestrar agentes de IA e integrar múltiplos sistemas internos (Privado).",
+        "link": "https://github.com/pedbza"
+    },
+    {
+        "titulo": "Este Portfólio Pessoal",
+        "descricao": "Projeto de portfólio (front-end) responsivo, construído com HTML semântico, CSS moderno e JavaScript vanilla.",
+        "link": "https://github.com/pedbza/portf-lio"
+    },
+    {
+        "titulo": "Nexus",
+        "descricao": "Pricipal projeto em desenvolvimento, Nexus é um sistema que conecta todas as partes em um so lugar (Privado)",
+        "link": "https://github.com/pedbza"
+    }
+]

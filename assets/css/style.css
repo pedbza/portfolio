@@ -1,0 +1,570 @@
+/* ========================================== */
+/* 1. VARIAVEIS E RESET GLOBAL                */
+/* ========================================== */
+:root {
+    /* Paleta de Cores (Tema Tech/Dark) */
+    --bg-color: #121212;          /* Fundo principal */
+    --card-bg: #1e1e1e;           /* Fundo dos cards e seções */
+    --text-primary: #e0e0e0;      /* Texto principal */
+    --text-secondary: #a0a0a0;    /* Texto secundário */
+    --accent-color: #00f5c3;      /* Verde Neon (Destaque) */
+    --accent-dark: #00c79f;       /* Verde mais escuro (Hover) */
+    --error-color: #ff6b6b;       /* Vermelho para erros */
+    
+    --nav-height: 70px;
+    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Rolagem nativa suave */
+    scroll-padding-top: var(--nav-height); /* Compensação para a navbar fixa */
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada */
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent-color);
+    transition: 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-dark);
+}
+
+ul {
+    list-style: none;
+}
+
+/* Utilitário de Container */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ========================================== */
+/* 2. NAVBAR INTELIGENTE (Hidden/Visible)     */
+/* ========================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    background-color: rgba(18, 18, 18, 0.9); /* Fundo semi-transparente */
+    backdrop-filter: blur(10px); /* Efeito de vidro fosco */
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* Estado Inicial: Escondido (acima da tela) */
+    transform: translateY(-100%);
+    transition: transform 0.4s ease-in-out;
+}
+
+/* Classe adicionada via JS para mostrar a navbar */
+.navbar.visible {
+    transform: translateY(0);
+}
+
+.navbar ul {
+    display: flex;
+    gap: 2rem;
+}
+
+.navbar a {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+}
+
+/* Efeito de sublinhado animado no menu */
+.navbar a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent-color);
+    transition: width 0.3s;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+/* ========================================== */
+/* 3. HERO SECTION (CRACHÁ REALISTA + CORDÃO) */
+/* ========================================== */
+.hero-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Gradiente de fundo ajustado para destacar o plástico */
+    background: radial-gradient(circle at center, #2a2a2a 30%, #000000 100%);
+    perspective: 1200px; /* Perspectiva aumentada para realismo */
+    overflow: hidden;
+    position: relative;
+}
+
+/* O Container que move tudo em 3D */
+.card-container {
+    position: relative;
+    width: 360px;
+    height: 580px; 
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out; /* Suavidade ao seguir o mouse */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* Alinha o crachá na parte de baixo do container */
+}
+
+/* --- ESTILOS DO CORDÃO (LANYARD) --- */
+
+.lanyard-strap {
+    position: absolute;
+    top: -250px; /* Começa acima da tela */
+    left: 50%;
+    transform: translateX(-50%) translateZ(-20px); /* Fica atrás do crachá */
+    width: 140px; /* Largura da abertura do cordão */
+    height: 350px; 
+    
+    /* Cria o formato em "V" do cordão */
+    background: conic-gradient(from 180deg at 50% 100%,
+        transparent 160deg,
+        #222 160deg, 
+        #222 200deg,
+        transparent 200deg);
+    
+    /* Textura de tecido */
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 2px),
+                      conic-gradient(from 180deg at 50% 100%, transparent 160deg, #222 160deg, #222 200deg, transparent 200deg);
+
+    z-index: -1;
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+}
+
+/* O clipe metálico */
+.lanyard-clip {
+    width: 40px;
+    height: 50px;
+    background: linear-gradient(to bottom, #777, #ccc, #777); /* Efeito metálico */
+    border-radius: 4px;
+    position: absolute;
+    top: 90px; /* Conecta o cordão ao plástico */
+    z-index: 0;
+    transform: translateZ(-5px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+    border: 1px solid #555;
+}
+
+/* Gancho do clipe */
+.lanyard-clip::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 25px;
+    border: 4px solid #aaa;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+}
+
+/* --- ESTILOS DO SUPORTE PLÁSTICO --- */
+.plastic-badge-holder {
+    width: 360px;
+    height: 540px;
+    position: relative;
+    /* Plástico transparente */
+    background: rgba(255, 255, 255, 0.02); 
+    border-radius: 20px;
+    
+    /* Bordas grossas simulando plástico */
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    border-top: 3px solid rgba(255, 255, 255, 0.3); /* Luz vindo de cima */
+    border-bottom: 3px solid rgba(255, 255, 255, 0.05);
+    
+    /* Sombras e brilhos */
+    box-shadow: 
+        inset 0 0 20px rgba(255, 255, 255, 0.05), /* Brilho interno */
+        0 30px 60px rgba(0, 0, 0, 0.6); /* Sombra no chão */
+    
+    backdrop-filter: blur(2px); 
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px; /* Espaço interno para o papel */
+    
+    transform: translateZ(10px);
+}
+
+/* Furo do suporte */
+.holder-slot {
+    position: absolute;
+    top: 15px;
+    width: 80px;
+    height: 12px;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,1);
+}
+
+/* --- ESTILOS DO INSERT (PAPEL) --- */
+.badge-insert {
+    width: 100%;
+    height: 100%;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    position: relative;
+    top: 15px; /* Ajuste para não cobrir o furo */
+}
+
+.badge-img {
+    width: 100%;
+    height: calc(100% - 75px);
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: brightness(0.95);
+    transition: filter 0.3s;
+}
+
+.card-container:hover .badge-img {
+    filter: brightness(1.05);
+}
+
+.badge-bottom-bar {
+    height: 75px;
+    background-color: var(--card-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 3px solid var(--accent-color);
+    /* Textura sutil no papel da barra */
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.1));
+}
+
+.badge-title {
+    margin: 0; padding: 0; border: none;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 800;
+    background: linear-gradient(45deg, #fff, var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+/* Dica de Rolagem */
+.scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    animation: bounce 2s infinite;
+    opacity: 0.7;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+/* ========================================== */
+/* 4. ESTILOS GERAIS DE SEÇÃO                 */
+/* ========================================== */
+.section {
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #fff;
+    border-left: 5px solid var(--accent-color);
+    padding-left: 15px;
+}
+
+h3 {
+    color: var(--accent-color);
+    margin: 1.5rem 0 1rem 0;
+    font-size: 1.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+/* ========================================== */
+/* 5. SKILLS (Badges)                         */
+/* ========================================== */
+#skills ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#skills li {
+    background-color: var(--card-bg);
+    border: 1px solid var(--accent-color);
+    color: var(--text-primary);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+#skills li:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 245, 195, 0.3);
+}
+
+/* ========================================== */
+/* 6. EXPERIÊNCIA (Card Simples)              */
+/* ========================================== */
+.job-card {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--accent-color);
+}
+
+.job-card .company {
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.job-card ul {
+    list-style: disc;
+    margin-left: 20px;
+    color: var(--text-secondary);
+}
+
+.job-card li {
+    margin-bottom: 0.5rem;
+}
+
+/* ========================================== */
+/* 7. PROJETOS (Grid System & Cards)          */
+/* ========================================== */
+#projetos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.project-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent-color);
+}
+
+.project-card h4 {
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.project-card a {
+    display: inline-block;
+    margin-top: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.video-section {
+    margin-top: 3rem;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ========================================== */
+/* 8. CONTATO & FORMULÁRIO                    */
+/* ========================================== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+}
+
+.contact-info p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-info a {
+    color: var(--accent-color);
+}
+
+#contact-form {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    background-color: #121212;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+button[type="submit"] {
+    background-color: var(--accent-color);
+    color: #000;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--accent-dark);
+    transform: translateY(-2px);
+}
+
+#form-status {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: bold;
+    min-height: 1.6rem;
+}
+
+/* ========================================== */
+/* 9. FOOTER                                  */
+/* ========================================== */
+.footer {
+    background-color: var(--card-bg);
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer p {
+    margin-bottom: 0.5rem;
+    color: #888;
+}
+
+/* ========================================== */
+/* 10. MEDIA QUERIES (RESPONSIVIDADE)         */
+/* ========================================== */
+
+@media (min-width: 768px) {
+    .navbar ul { gap: 3rem; }
+    .contact-grid {
+        grid-template-columns: 1fr 1.5fr;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ajuste para caber o crachá em telas pequenas */
+    .card-container {
+        transform: scale(0.75); 
+    }
+    .lanyard-strap {
+        height: 300px;
+    }
+    
+    h2 { font-size: 2rem; }
+    
+    .navbar ul {
+        gap: 1rem;
+        font-size: 0.8rem;
+    }
+    .navbar a { font-size: 0.9rem; }
+}
