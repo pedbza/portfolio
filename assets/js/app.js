@@ -4,9 +4,6 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* ===================================================== */
-    /* 1. EFEITO 3D NO CRACHÁ (TILT EFFECT)                 */
-    /* ===================================================== */
     const card = document.getElementById("tilt-card");
     const container = document.querySelector(".hero-container");
 
@@ -29,10 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
             card.style.transform = `rotateY(0deg) rotateX(0deg)`;
         });
     }
-
-    /* ===================================================== */
-    /* 2. NAVBAR SCROLL (Aparecer/Esconder)                 */
-    /* ===================================================== */
     const navbar = document.querySelector(".navbar");
     const hero = document.getElementById("landing");
 
@@ -46,10 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
-    /* ===================================================== */
-    /* 3. SMOOTH SCROLL (Navegação Suave)                   */
-    /* ===================================================== */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -64,10 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-
-    /* ===================================================== */
-    /* 4. CARREGAR PROJETOS (JSON)                          */
-    /* ===================================================== */
     const projContainer = document.getElementById("projetos-container");
 
     if (projContainer) {
@@ -95,10 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 projContainer.innerHTML = "<p>Não foi possível carregar os projetos no momento.</p>";
             });
     }
-
-    /* ===================================================== */
-    /* 5. ANIMAÇÃO AO ROLAR (GSAP)                          */
-    /* ===================================================== */
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -115,9 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     document.querySelectorAll('.gsap-reveal').forEach(el => observer.observe(el));
 
-    /* ===================================================== */
-    /* 6. ENVIO DE FORMULÁRIO SEM RECARREGAR (AJAX)         */
-    /* ===================================================== */
     const form = document.getElementById("my-form");
     const successMessage = document.getElementById("success-message");
     const status = document.getElementById("my-form-status");
@@ -140,12 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }).then(response => {
                 if (response.ok) {
-                    // SUCESSO: Esconde o form e mostra a mensagem de obrigado
                     form.style.display = "none";
                     if (successMessage) successMessage.style.display = "block";
                     form.reset();
                 } else {
-                    // ERRO: Mostra o erro vindo do Formspree
                     response.json().then(data => {
                         if (Object.hasOwn(data, 'errors')) {
                             status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
@@ -158,7 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     })
                 }
             }).catch(error => {
-                // ERRO DE REDE
                 status.innerHTML = "Erro de conexão. Tente novamente.";
                 status.style.color = "#ff6b6b";
                 btn.textContent = "Enviar Mensagem";

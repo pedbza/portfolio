@@ -1,6 +1,4 @@
-/* ========================================== */
-/* 1. VARIÁVEIS E RESET GLOBAL                */
-/* ========================================== */
+
 :root {
     /* Paleta de Cores (Tema Tech/Dark) */
     --bg-color: #121212;          /* Fundo principal */
@@ -55,9 +53,6 @@ ul {
     padding: 0 20px;
 }
 
-/* ========================================== */
-/* 2. NAVBAR INTELIGENTE (Hidden/Visible)     */
-/* ========================================== */
 .navbar {
     position: fixed;
     top: 0;
@@ -110,9 +105,6 @@ ul {
     width: 100%;
 }
 
-/* ========================================== */
-/* 3. HERO SECTION (CRACHÁ REALISTA + CORDÃO) */
-/* ========================================== */
 .hero-container {
     height: 100vh;
     display: flex;
@@ -301,9 +293,6 @@ ul {
     60% { transform: translateY(-5px); }
 }
 
-/* ========================================== */
-/* 4. ESTILOS GERAIS DE SEÇÃO                 */
-/* ========================================== */
 .section {
     padding: 5rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -328,9 +317,6 @@ p {
     color: var(--text-secondary);
 }
 
-/* ========================================== */
-/* 5. SKILLS (Badges)                         */
-/* ========================================== */
 #skills ul {
     display: flex;
     flex-wrap: wrap;
@@ -355,9 +341,6 @@ p {
     box-shadow: 0 5px 15px rgba(0, 245, 195, 0.3);
 }
 
-/* ========================================== */
-/* 6. EXPERIÊNCIA (Card Simples)              */
-/* ========================================== */
 .job-card {
     background-color: var(--card-bg);
     padding: 2rem;
@@ -381,9 +364,6 @@ p {
     margin-bottom: 0.5rem;
 }
 
-/* ========================================== */
-/* 7. PROJETOS (Grid System & Cards)          */
-/* ========================================== */
 #projetos-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -445,9 +425,6 @@ p {
     height: 100%;
 }
 
-/* ========================================== */
-/* 8. CONTATO & FORMULÁRIO                    */
-/* ========================================== */
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -536,9 +513,6 @@ button[type="submit"]:disabled {
     min-height: 1.6rem;
 }
 
-/* ========================================== */
-/* 9. FOOTER                                  */
-/* ========================================== */
 .footer {
     background-color: var(--card-bg);
     text-align: center;
@@ -552,9 +526,6 @@ button[type="submit"]:disabled {
     color: #888;
 }
 
-/* ========================================== */
-/* 10. MEDIA QUERIES (RESPONSIVIDADE)         */
-/* ========================================== */
 
 @media (min-width: 768px) {
     .navbar ul { gap: 3rem; }
