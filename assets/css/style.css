@@ -1,5 +1,5 @@
 /* ========================================== */
-/* 1. VARIAVEIS E RESET GLOBAL                */
+/* 1. VARIÁVEIS E RESET GLOBAL                */
 /* ========================================== */
 :root {
     /* Paleta de Cores (Tema Tech/Dark) */
@@ -64,7 +64,7 @@ ul {
     left: 0;
     width: 100%;
     height: var(--nav-height);
-    background-color: rgba(18, 18, 18, 0.9); /* Fundo semi-transparente */
+    background-color: rgba(18, 18, 18, 0.95); /* Fundo semi-transparente */
     backdrop-filter: blur(10px); /* Efeito de vidro fosco */
     z-index: 1000;
     display: flex;
@@ -422,6 +422,7 @@ p {
     font-size: 0.9rem;
 }
 
+/* Container de Vídeo Responsivo */
 .video-section {
     margin-top: 3rem;
 }
@@ -462,11 +463,17 @@ p {
     color: var(--accent-color);
 }
 
-#contact-form {
+/* Form Wrapper (Container do formulário) */
+.form-wrapper {
     background-color: var(--card-bg);
     padding: 2rem;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Estilo do Formulário */
+#my-form {
+    width: 100%;
 }
 
 .form-group {
@@ -517,7 +524,12 @@ button[type="submit"]:hover {
     transform: translateY(-2px);
 }
 
-#form-status {
+button[type="submit"]:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+#my-form-status {
     margin-top: 1rem;
     text-align: center;
     font-weight: bold;
